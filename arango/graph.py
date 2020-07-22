@@ -163,7 +163,7 @@ class Graph(APIWrapper):
         request = Request(
             method='post',
             endpoint='/_api/gharial/{}/vertex'.format(self._name),
-            data={'name': name}
+            data={'collection': name}
         )
 
         def response_handler(resp):
