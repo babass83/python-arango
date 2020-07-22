@@ -1152,7 +1152,8 @@ class Database(APIWrapper):
                      orphan_collections=None,
                      smart=None,
                      smart_field=None,
-                     shard_count=None):
+                     shard_count=None,
+                     replication_factor=None):
         """Create a new graph.
 
         :param name: Graph name.
@@ -1209,6 +1210,8 @@ class Database(APIWrapper):
             data['smartGraphAttribute'] = smart_field
         if shard_count is not None:  # pragma: no cover
             data['numberOfShards'] = shard_count
+        if replication_factor is not None:
+            data['replicationFactor'] = replication_factor
 
         request = Request(
             method='post',

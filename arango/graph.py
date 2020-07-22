@@ -150,7 +150,7 @@ class Graph(APIWrapper):
         """
         return VertexCollection(self._conn, self._executor, self._name, name)
 
-    def create_vertex_collection(self, name, replication_factor=None, write_concern=None, num_shards=None):
+    def create_vertex_collection(self, name):
         """Create a vertex collection in the graph.
 
         :param name: Vertex collection name.
@@ -159,22 +159,11 @@ class Graph(APIWrapper):
         :rtype: arango.collection.VertexCollection
         :raise arango.exceptions.VertexCollectionCreateError: If create fails.
         """
-        data = {'name': name}
-
-        options = {}
-        if replication_factor is not None:
-            options['replicationFactor'] = replication_factor
-        if write_concern is not None:
-            options['writeConcern'] = write_concern
-        if num_shards is not None:
-            options['numberOfShards'] = num_shards
-        if options:
-            data['options'] = options
 
         request = Request(
             method='post',
             endpoint='/_api/gharial/{}/vertex'.format(self._name),
-            data=data
+            data={'name': name}
         )
 
         def response_handler(resp):
